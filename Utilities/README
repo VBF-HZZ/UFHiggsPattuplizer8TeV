@@ -1,0 +1,88 @@
+####################################
+#                                  #
+#        Pattuplizer README        #
+#                                  #
+#      Author: Matt Snowball       #
+# Last Update: 04.10.2014          #
+#                                  #
+####################################
+
+The pattuplizer is split into two releases due to the way the analysis was done up until now. The current releases are
+
+-CMSSW_4_4_5 for 7 TeV data/MC
+-CMSSW_5_3_9_patch3 for 8 TeV data/MC
+
+Below is an example of how to get started
+
+$ cmsrel CMSSW_5_3_9_patch3
+$ cd CMSSW_5_3_9_patch3/src
+$ cmsenv
+$ git clone git@github.com:UFLHEP/UFHiggsPattuplizer8TeV.git UFHiggsPattuplizer8TeV
+$ cp -r UFHiggsPattuplizer8TeV/Utilities/* ./
+$ python installPackages.py
+$ scram b -j12
+
+##Note: Once there is a full transition to GIT, this won't work for new packages. There will have to be a change to the installPackages.py and packages_src.txt. 
+
+-The main code is in PatTuplizer_44X_src.py. This file does all of the pattuplizing and has options to be set at the beginning of the file.
+-The code is mostly automated using scripts. To start a new pat tuple of a dataset, simply create a text file containing the datasets you want 
+ pattuplized in the same way (for example if they are all signal MC or all 2012A data). For this example I'll use 2012A data:
+
+1. Create a text file called DATA_2012A.txt containing these lines
+	/DoubleElectron/Run2012A-22Jan2013-v1/AOD
+	/DoubleMu/Run2012A-22Jan2013-v1/AOD
+	/MuEG/Run2012A-22Jan2013-v1/AOD
+
+2. Create_RM_cfg.py contains all of the info on run ranges, which JSON you want to use (which are kept in the JSONs directory), 
+   how many jobs per crab job (or alternatively how many lumis per job), your username (currently set to "snowball"), 
+   and the T2 directory for the output. To see the options do
+
+$ python Create_RM_cfg.py --help
+
+3. If you're running on Data then you will be using crab_data_src.cfg and for MC you will be using crab_src.cfg. 
+   Open the proper one of these files and make sure the settings are to your liking. 
+   Typically it is best to use these settings, but certain situations may call for different settings.
+
+4. Before you start creating jobs, the Create_RM_cfg.py script will need to know about your run and lumi sections. 
+   To do this, you will have to make sure you have the most up to date version of the LumiDB package (https://twiki.cern.ch/twiki/bin/viewauth/CMS/LumiCalc).   You will also have to check whether the recommended lumi is measured from the HF (in which case you use checkLumiOnJSON.sh) 
+   or whether it is from the pixel detector (in which case you use checkLumiOnJSON_pixel.sh). Then create your run file:
+
+$ ./checkLumiOnJSON_pixel.sh JSONs/ > lumiCheck_Jan22ReReco.txt
+
+   Then you will have to set the LumiCalc to lumiCheck_Legacy.txt in the Create_RM_cfg.py.
+
+4. Now you're ready to create a Submission directory.
+
+$ python Create_RM_cfg.py DATA_2012A.txt <options>
+
+   where <options> could look something like this
+
+$ python Create_RM_cfg.py DATA_2012A.txt -m 0 -d data/53X/Legacy_01.10/2012A -r 2012A
+
+5. This will create a directory called Submission_DATA_2012A_8TeV_2012A with many directories inside that are separated by dataset and run range. 
+   The output from all 3 datasets will end up in the same directory on the T2, separated by run range. In this way we can parallelize the 
+   datasets by run range and not have to worry about duplicate events in the different datasets when analyzing.
+
+6. Submitting is as simple as doing
+
+$ ./make_grid.sh --go Submission_DATA_2012A_8TeV_2012A
+
+  doing
+
+$ ./make_grid.sh Submission_DATA_2012A_8TeV_2012A
+
+  will only do crab -create instead of submitting too. This can be useful to figure out how many jobs you will create. 
+  You can also do this in multiple terminals. Parallelization is not a problem.
+
+7. Once your jobs have been submitted, they can be checked using the watch scripts
+
+$ ./watch_grid.sh Submission_DATA_2012A_8TeV_2012A
+
+   This will loop over the crab jobs and do crab -status -get in an efficient way. It then resubmits jobs that have failed. 
+   This works most of the time, but every once in a while, due to bugs in CRAB, you might have to resubmit or forceResubmit 
+   a few jobs by hand. This step cannot be parallelized perfectly.
+
+8. If for some reason you need to kill all the jobs in a Submission directory
+
+$ ./killall.sh Submission_DATA_2012A_8TeV_2012A
+
