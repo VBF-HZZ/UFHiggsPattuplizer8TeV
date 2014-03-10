@@ -1,0 +1,15 @@
+<export>
+</export>
+<library   name="UFHiggsPattuplizer8TeVFSRPhotons_plugins" file="*.cc">
+      <use name="FWCore/Framework"/>
+      <use name="FWCore/ParameterSet"/>
+      <use name="CommonTools/UtilAlgos"/>
+      <use name="RecoEgamma/EgammaTools"/>
+      <use name="MagneticField/Engine"/>
+      <use name="MagneticField/Records"/>
+      <use name="TrackingTools/TrackRefitter"/>
+      <use name="DataFormats/ParticleFlowCandidate"/>
+      <use name="DataFormats/METReco"/>
+      <use name="RecoMET/METAlgorithms"/>
+</library>
+

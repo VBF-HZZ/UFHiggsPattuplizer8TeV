@@ -1,0 +1,23 @@
+      <use   name="FWCore/Framework"/>
+      <use   name="FWCore/PluginManager"/>
+      <use   name="FWCore/ParameterSet"/>
+      <use   name="FWCore/Utilities"/>
+      <use   name="CommonTools/UtilAlgos"/>
+      <use   name="RecoEgamma/EgammaTools"/>
+      <use   name="MagneticField/Engine"/>
+      <use   name="MagneticField/Records"/>
+      <use   name="CommonTools/CandAlgos"/>
+      <use   name="CommonTools/CandUtils"/>
+      <use   name="TrackingTools/TrackRefitter"/>
+      <use   name="DataFormats/ParticleFlowCandidate"/>
+      <use   name="DataFormats/RecoCandidate"/>
+      <use   name="DataFormats/MuonReco"/>
+      <use   name="DataFormats/Math"/>
+      <use   name="CommonTools/Utils"/>
+      <use   name="DataFormats/PatCandidates"/>
+      <use   name="FWCore/MessageLogger"/>
+ 
+<library   name="UFHiggsPattuplizer8TeVPFMuons_plugins" file="*.cc">
+  <flags   EDM_PLUGIN="1"/>
+</library>
+

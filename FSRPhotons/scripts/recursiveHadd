@@ -1,0 +1,91 @@
+#!/bin/bash
+
+pass=0
+newList=""
+fullList=""
+DEBUG=""
+
+function debug() {
+    if [ ! -e $DEBUG ] ; then echo $* ; fi
+}
+
+function factorial() {
+
+    # gonna do three per hadd
+
+    N=$#
+    echo "Number of root files after step $pass: $N"
+
+    # but if there are only 2, then we are golden
+    if [ $# -eq 2 ] ; then
+        newFile="file.$#.$pass.root"
+        newList="$newFile"
+        echo hadd -f $newFile $1 $2 >> myLog
+        hadd -f $newFile $1 $2 >> crapLog 2>&1
+        return 0
+    fi
+
+    # reset the new list for the next recursion
+    newList=""
+
+    # if there is not an even multiple of 3,
+    # then we save the extra's till next recurse
+    temp=$#
+    temp=$((temp % 3))
+    while [ $temp -gt 0 ] ; do
+        newList="$newList $1"
+        shift
+        temp=$#
+        temp=$((temp % 3))
+    done
+        
+    # pid's we wanna wait for until next iteration
+    toWait=""
+    
+    # should be a 1/3 as many files as we have
+    while [ $# -gt 2 ] ; do
+
+        # save the new file
+        newFile="file.$#.$pass.root"
+
+        # append to the new list for next recurse
+        newList="$newList $newFile"
+        fullList="$fullList $newFile"
+
+        # log it
+        echo hadd -f $newFile $1 $2 $3 >> myLog
+
+        # do it
+        hadd -f $newFile $1 $2 $3 >> crapLog 2>&1 &
+
+        # and add the PID to the wait list
+        toWait="$toWait $!"
+
+        # clear the three we just added from the list
+        shift ; shift ; shift
+        while [ "`ps | grep hadd | wc -l`" -ge 8 ] ; do sleep 10s; done
+    done
+
+    # wait
+    for x in $toWait; do wait $x; done
+
+    # counting
+    pass=$((pass+1))
+    debug "++++++++++++++++++++++++++++++++"
+    debug "$pass"
+    debug "$newList"
+    debug "++++++++++++++++++++++++++++++++"
+
+    if [ $N -le 2 ] ; then 
+        return 0
+    else
+        factorial $newList
+        return 0
+    fi
+
+}
+
+factorial $*
+echo mv $newList $newList.tempDoNotDelete
+echo rm $fullList
+echo mv $newList.tempDoNotDelete combinedFiles.root

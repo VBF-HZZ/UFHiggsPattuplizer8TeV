@@ -1,0 +1,18 @@
+<use name="FWCore/Framework"/>
+<use name="FWCore/PluginManager"/>
+<use name="FWCore/ParameterSet"/>
+<use name="DataFormats/RecoCandidate"/>
+<use name="DataFormats/PatCandidates"/>
+<use name="DataFormats/TrackReco"/>
+<use name="DataFormats/Common"/>
+<use name="RecoEgamma/EgammaTools"/>
+<use name="RecoEgamma/EgammaIsolationAlgos"/>
+<use name="MagneticField/Engine"/>
+<use name="MagneticField/Records"/>
+<use name="CLHEP"/>
+
+<library   file="*.cc" name="UFHiggsPattuplizer8TeVConvValueMapProducer_plugin">
+  <flags   EDM_PLUGIN="1"/>
+</library>
+
+  

@@ -1,0 +1,3 @@
+/DoubleElectron/Run2012B-22Jan2013-v1/AOD
+/DoubleMuParked/Run2012B-22Jan2013-v1/AOD
+/MuEG/Run2012B-22Jan2013-v1/AOD

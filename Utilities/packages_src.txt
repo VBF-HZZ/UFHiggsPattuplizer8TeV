@@ -1,0 +1,20 @@
+V02-05-11      DataFormats/CaloRecHit                           
+V06-05-06-10   DataFormats/PatCandidates                        
+V00-02-14      DataFormats/StdDictionaries                      
+V00-00-08      EgammaAnalysis/ElectronTools                     
+V00-00-70      FWCore/GuiBrowsers                               
+V08-09-57      PhysicsTools/PatAlgos                            
+V03-09-28      PhysicsTools/PatUtils                            
+V09-00-01      RecoEgamma/EgammaTools                           
+V03-03-12-02   RecoMET/METProducers                             
+V15-02-06      RecoParticleFlow/PFProducer 
+V00-03-04      UserCode/CMG/CMGTools/External CMGTools/External
+V02-03-00      MuonAnalysis/MuonAssociators
+CMSSW_5_3_X-B01  UserCode/UFL/PAT/UFHZZSkim UFHZZSkim
+V04-02-03  RecoLuminosity/LumiDB
+U09-04-03-00-01 DataFormats/MuonReco 
+muscle_v4_2_0 UserCode/scasasso/MuScleFit/Calibration MuScleFit/Calibration
+## see https://www.dropbox.com/s/oddw6hrl67tgnrk/gp-ghost.pptx ##
+
+## You must have this set in .bash_profile
+## export CVSROOT=":ext:<username>@lxplus5.cern.ch:/afs/cern.ch/user/c/cvscmssw/public/CMSSW"

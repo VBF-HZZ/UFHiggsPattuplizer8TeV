@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+if [ $# -lt 1 ] ; then
+    echo usage
+    exit 1
+fi
+
+column=$1
+shift
+#while (( $# > 1 )) ; do
+#    case $1 in
+#        [0-9]*) column=$1
+#            ;;
+#        -F) shift;
+#            seperator=${1:- }
+#            ;;
+#    esac
+#    shift
+#done
+
+if [ $# -eq 0 ] ; then 
+    while read x; do
+        #echo $x | awk -F"$seperator" "{print \$${column}}"
+        echo $x | awk "{print \$${column}}"
+    done
+elif [ $# -gt 0 ] ; then
+    cat $1 | while read x; do
+        #echo $x | awk -F"$seperator" "{print \$${column}}"
+        echo $x | awk "{print \$${column}}"
+    done
+fi
