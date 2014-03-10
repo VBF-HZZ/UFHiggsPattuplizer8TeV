@@ -45,18 +45,32 @@ def installPackages():
 
         if len(f) == 2:
             cmd = 'cvs co -r '+f[0]+' '+f[1]
+            if os.path.isdir(f[1]):
+                print f[1],"already exists..."
+                continue
         if len(f) == 3:
-            cmd = 'cvs co -r '+f[0]+' -d '+f[2]+' '+f[1]
-        processCmd(cmd)
-
+            #cmd = 'cvs co -r '+f[0]+' -d '+f[2]+' '+f[1]
+            if os.path.isdir(f[2]):
+                print f[2],"already exists..."
+                continue
+            cmd = 'cvs co -r '+f[0]+' '+f[1]
+            status = processCmd(cmd)
+            cmd = 'mkdir -p '+f[2]
+            status = processCmd(cmd)
+            cmd = 'mv '+f[1]+'/* '+f[2]
+            status = processCmd(cmd)
+            cmd = 'rm -r UserCode'
+            
+        status = processCmd(cmd)
+                
     cmd = 'cvs update -r1.6 PhysicsTools/PatAlgos/plugins/PATPFParticleProducer.cc'
     processCmd(cmd)
     cmd = 'cvs update -r1.8 PhysicsTools/PatAlgos/plugins/PATPFParticleProducer.h'
     processCmd(cmd)
     cmd = 'cvs update -r1.6 PhysicsTools/PatAlgos/plugins/PATCleaner.cc'
     processCmd(cmd)
-    cmd = 'mv UFHZZSkim/PFMuons/plugins/MuonCleanerBySegments.cc UFHZZSkim/PFMuons/plugins/MuonCleanerBySegments.cc.old'
-    processCmd(cmd)
+    #cmd = 'mv UFHiggsPattuplizer8TeV/PFMuons/plugins/MuonCleanerBySegments.cc UFHiggsPattuplizer8TeV/PFMuons/plugins/MuonCleanerBySegments.cc.old'
+    #processCmd(cmd)
     cmd = 'cd EgammaAnalysis/ElectronTools/data/; cat download.url | xargs wget; cd ../../../'
     processCmd(cmd)
 
