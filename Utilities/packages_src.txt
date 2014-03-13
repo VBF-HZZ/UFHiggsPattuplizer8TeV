@@ -10,10 +10,10 @@ V03-03-12-02   RecoMET/METProducers
 V15-02-06      RecoParticleFlow/PFProducer 
 V00-03-04      UserCode/CMG/CMGTools/External CMGTools/External
 V02-03-00      MuonAnalysis/MuonAssociators
-CMSSW_5_3_X-B01  UserCode/UFL/PAT/UFHZZSkim UFHZZSkim
-V04-02-03  RecoLuminosity/LumiDB
-U09-04-03-00-01 DataFormats/MuonReco 
+V04-02-03      RecoLuminosity/LumiDB
+###U09-04-03-00-01 DataFormats/MuonReco --- Destroys recipe??? 
 muscle_v4_2_0 UserCode/scasasso/MuScleFit/Calibration MuScleFit/Calibration
+
 ## see https://www.dropbox.com/s/oddw6hrl67tgnrk/gp-ghost.pptx ##
 
 ## You must have this set in .bash_profile
