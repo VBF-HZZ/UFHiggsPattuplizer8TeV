@@ -924,7 +924,7 @@ process.nEventsTotal = cms.EDProducer("EventCountProducer")
 process.nEventsTriLep = cms.EDProducer("EventCountProducer")
 process.nEvents2LSkim = cms.EDProducer("EventCountProducer")
 
-process.load('UFHZZSkim.FSRPhotons.fsrPhotons_cff')
+process.load('UFHiggsPattuplizer8TeV.FSRPhotons.fsrPhotons_cff')
 
 process.p_trilep = cms.Path(
     process.nEventsTotal
