@@ -11,7 +11,7 @@ from PhysicsTools.PatAlgos.tools.coreTools import *
 ########## Options ############
 isMC = bool(True)
 
-isHorZZ = bool(False)
+isHorZZ = bool(True)
 
 isSync = bool(False)
 
