@@ -157,7 +157,8 @@ def prepareCrabArea(dataset, runRange, subDirName):
     else:
         #for run on data
         splitStr = '_AOD'
-    USERNAME='snowball'  #pwd.getpwuid(os.getuid())[0]
+    #USERNAME='snowball'  #pwd.getpwuid(os.getuid())[0]
+    USERNAME=pwd.getpwuid(os.getuid())[0]
     
     # prepare directories and file names
     dataset = dataset.rstrip('\n')
