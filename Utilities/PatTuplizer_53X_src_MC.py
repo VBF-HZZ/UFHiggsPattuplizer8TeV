@@ -9,7 +9,7 @@ import FWCore.ParameterSet.Config as cms
 from PhysicsTools.PatAlgos.tools.coreTools import *
 
 ########## Options ############
-isMC = bool(False)
+isMC = bool(True)
 
 isHorZZ = bool(True)
 
