@@ -20,7 +20,7 @@ def parseOptions():
     theLumiCalc="lumiCheck_Jan22ReReco.txt"
     theRunPeriod="2012A"
     theDir="data/53X/Legacy/2012A"
-
+    theUserName=pwd.getpwuid(os.getuid())[0]
 
     parser.add_option('-c', '--cfg',      dest='cfgFile',    type='string', default=thePattuplizer, help='Configuration file for the analysis.')
     parser.add_option('-j', '--json',     dest='JSON',       type='string', default=theJson, help='The name of the JSON file to be used. The file should be in the local "./JSONs" directory.')
@@ -34,6 +34,7 @@ def parseOptions():
     parser.add_option('-t', '--tag',      dest='appendName', type='string', default="8TeV", help='Tag that will be appended to the file/dir names.')
     parser.add_option('-u', '--isuser',   dest='isUSER',     type='int',    default=0, help='Is it a user generated sample (User - 1, Official - 0)')
     parser.add_option('-m', '--ismc',     dest='isMC',       type='int',    default=0, help='Is it a MC sample (MC - 1, Data - 0).')
+    parser.add_option('--up', '--userpath',     dest='UserName',       type='string',    default=theUserName, help='username in the T2 SE.')
 
     # store options and arguments as global variables
     global opt, args
@@ -157,8 +158,7 @@ def prepareCrabArea(dataset, runRange, subDirName):
     else:
         #for run on data
         splitStr = '_AOD'
-    #USERNAME='snowball'  #pwd.getpwuid(os.getuid())[0]
-    USERNAME=pwd.getpwuid(os.getuid())[0]
+    USERNAME=opt.UserName
     
     # prepare directories and file names
     dataset = dataset.rstrip('\n')
