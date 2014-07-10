@@ -13,16 +13,14 @@ inputDir=$1; shift;
 
 cd ${inputDir}
 
-for d in $(ls .)
-  do
-
+for d in $(ls .);
+do
+  echo $d
   cd $d
   n=$(ls -1 crab_* | wc -l)
   if [[ "$n" == "0" ]]; then
-      if [[ "$GO" == "1" ]]; then crab -cfg crab.cfg -USER.ui_working_dir=crab_$d -create -submit; 
-      else
-	  crab -cfg crab.cfg -USER.ui_working_dir=crab_$d -create;
-      fi
+      if [[ "$GO" == "1" ]]; then crab -cfg crab.cfg -USER.ui_working_dir=crab_$d -create -submit ; 
+      else crab -cfg crab.cfg -USER.ui_working_dir=crab_$d -create ;  fi
   fi
   cd ../
 
